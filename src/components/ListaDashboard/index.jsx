@@ -31,12 +31,13 @@ export default function ListaDashboard() {
       ) : (
         <>
           <FundoLista>
-            <h2>Historico de chegada</h2>
+            <h2>Histórico de chegada</h2>
             {pessoas.map((pessoa, key) => {
               return (
                 <ListaComponente>
-                  <h1>{pessoa.name}</h1>
-                  <h1>{pessoa.id}</h1>
+                  <h1>{pessoa.User.name}</h1>
+                  {/* <h1>{pessoa.id}</h1> */}
+                  <h1>{pessoa.date}</h1>
                 </ListaComponente>
               );
             })}

@@ -2,20 +2,24 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-left: 10rem;
-  margin-right: 10rem;
-  padding-top: 5rem;
+  justify-content: space-between;
+  width: 67%;
+  align-items: center;
+
+  .headerLeft {
+    display: flex;
+    padding-top: 3%;
+  }
 
   img {
     width: 5rem;
-    padding-right: 1rem;
+    padding: 0 2%;
   }
 
   .usuario {
     width: 10rem;
     color: white;
-    padding-right: 15rem;
+    padding: 8% 0% 0% 0%;
   }
 
   .logout {
@@ -25,8 +29,7 @@ export const HeaderContainer = styled.div`
   }
 
   .navegacao {
-    padding-top: 10px;
-    padding-right: 18rem;
+    padding-left: 45%;
   }
 
   a {
