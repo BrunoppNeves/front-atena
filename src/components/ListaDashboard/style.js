@@ -24,7 +24,7 @@ export const FundoLista = styled.div`
   width: 42vw;
   height: 70vh;
   border-radius: 16px;
-  margin: 2% 0 0 0.5% ;
+  margin: 2% 0 0 0.5%;
 
   h2 {
     color: white;

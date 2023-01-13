@@ -3,10 +3,7 @@ import styled from "styled-components";
 export const BotaoDashboardContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  /* width: 10%;
-  height: 50%; */
-  margin: 0% 2%;
+  align-items: center;  
 
   button {
     display: flex;

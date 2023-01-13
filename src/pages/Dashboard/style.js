@@ -32,11 +32,12 @@ export const DivRightContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   /* background-color: gray; */
   margin-top: 2%;
-  margin-right: 0.5%;
-  height: 83.7%;
-  width: 50%;
+  /* margin: 2% 0 0 0.5%; */
+  height: 70vh;
+  width: 42vw;
 `;
 export const DivBottomContainer = styled.div`
   display: flex;
@@ -47,11 +48,11 @@ export const DivBottomContainer = styled.div`
 
 export const DivVideoContainer = styled.div`
   width: 100%;
-  height: 75%;
+  height: 100%;
 `;
 
 export const DivButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  width: 42vw;
 `;

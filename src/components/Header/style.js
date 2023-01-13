@@ -26,13 +26,19 @@ export const HeaderContainer = styled.div`
     color: #ff0000;
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
   }
 
   .navegacao {
     padding-left: 45%;
+    cursor: pointer;
+  }
+  a:hover {
+    color: #6f4be0;
   }
 
   a {
+    text-decoration: none;
     color: white;
     font-weight: bold;
     margin: 20px;

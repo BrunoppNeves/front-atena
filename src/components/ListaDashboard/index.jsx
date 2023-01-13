@@ -36,7 +36,6 @@ export default function ListaDashboard() {
               return (
                 <ListaComponente>
                   <h1>{pessoa.User.name}</h1>
-                  {/* <h1>{pessoa.id}</h1> */}
                   <h1>{pessoa.date}</h1>
                 </ListaComponente>
               );

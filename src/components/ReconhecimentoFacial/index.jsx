@@ -60,7 +60,7 @@ export default function ReconhecimentoFacial() {
 
   return (
     <ReconhecimentoFacialContainer>
-          <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
+      <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
     </ReconhecimentoFacialContainer>
   );
 }
