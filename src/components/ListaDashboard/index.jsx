@@ -19,9 +19,6 @@ export default function ListaDashboard() {
   useEffect(() => {
     pessoasApi();
   }, []);
-
-  //  const pessoas = ["Bruno", "Jorge", "Thami", "Lele", "Paulo"];
-  //const listaPessoas = pessoas.map((c) => <li>{c.data.name}</li>);
   return (
     <>
       {!pessoas ? (

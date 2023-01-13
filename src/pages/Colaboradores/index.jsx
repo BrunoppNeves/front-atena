@@ -4,6 +4,7 @@ import { WorkSpaceContainer, ColaboradoresContainer, DivBottomContainer } from "
 import ListaColaboradores from "../../components/ListaColaboradores";
 
 export default function Colaboradores() {
+
   return (
     <ColaboradoresContainer>
       <WorkSpaceContainer>
