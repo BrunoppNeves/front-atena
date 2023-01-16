@@ -6,13 +6,25 @@ import botaoEditar from "../../assets/images/IconeEditar.png";
 import lixeira from "../../assets/images/Lixeira.svg";
 import info from "../../assets/images/info.png";
 import adicionar from "../../assets/images/AdicionarUsuario.svg";
+import ModalInfo from "../ModalInfo";
 
 export default function ListaColaboradores() {
-  const [pessoas, setPessoas] = useState();
+  const token = localStorage.getItem("token");
 
-  async function pessoasApi() {
+  const [pessoas, setPessoas] = useState();
+  const [showModalInfo, setShowModalInfo] = useState(false);
+
+  const handleSetShowModalInfo = () => {
+    setShowModalInfo(!showModalInfo);
+  };
+
+  async function handlePessoasApi() {
     await api
-      .get("/users/list")
+      .get("/users/list", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         console.log(response.data);
         setPessoas(response.data);
@@ -22,8 +34,23 @@ export default function ListaColaboradores() {
       });
   }
 
+  async function handleDelete(id) {
+    await api.delete(`/users/delete/${id}`).then((response) => {
+      console.log(id);
+      console.log(response.data);
+      if (response.status === 200) {
+        console.log("sucesso");
+        alert(`deletado com sucesso`);
+      }
+    });
+
+    handlePessoasApi().catch((err) => {
+      console.error("erro" + err);
+    });
+  }
+
   useEffect(() => {
-    pessoasApi();
+    handlePessoasApi();
   }, []);
 
   return (
@@ -56,13 +83,22 @@ export default function ListaColaboradores() {
                   <h1>{pessoa.competencia}</h1>
                   <h1>{pessoa.vinculo}</h1>
                   <DivButtonsContainer>
-                    <BotaoColaboradores icon={botaoEditar} />
-                    <BotaoColaboradores icon={lixeira} />
-                    <BotaoColaboradores icon={info} />
+                    <BotaoColaboradores icon={info} onClick={handleSetShowModalInfo} />
+                    <BotaoColaboradores icon={botaoEditar} router={`/users/delete/`} />
+                    <BotaoColaboradores
+                      icon={lixeira}
+                      //router={`/users/delete/${pessoa.id}`}
+                      onClick={() => handleDelete(pessoa.id)}
+                    />
                   </DivButtonsContainer>
                 </DivListaUserContainer>
               );
             })}
+              {showModalInfo &&
+                <ModalInfo
+                  title="Informações do Colaborador"
+                  onClick={handleSetShowModalInfo}
+                />}
           </DivCentralContainer>
         </>
       )}

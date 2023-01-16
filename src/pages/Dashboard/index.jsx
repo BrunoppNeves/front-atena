@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import cadeadoFechado from "../../assets/images/cadeadoFechado.svg";
 import cadeadoAberto from "../../assets/images/cadeadoAberto.svg";
@@ -17,6 +17,8 @@ import ListaDashboard from "../../components/ListaDashboard/";
 import ReconhecimentoFacial from "../../components/ReconhecimentoFacial";
 
 export default function Dashboard() {
+  const token = localStorage.getItem("token");
+
   return (
     <DashboardContainer>
       <WorkSpaceContainer>

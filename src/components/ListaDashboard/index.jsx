@@ -3,12 +3,19 @@ import api from "../../services/api";
 import { ListaComponente, FundoLista } from "./style";
 
 export default function ListaDashboard() {
+  const token = localStorage.getItem("token");
+
   const [pessoas, setPessoas] = useState();
 
-  async function pessoasApi() {
+  async function handlePessoasApi() {
     await api
-      .get("/history/list")
+      .get("/history/list", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
+        console.log(response);
         setPessoas(response.data);
       })
       .catch((err) => {
@@ -17,11 +24,9 @@ export default function ListaDashboard() {
   }
 
   useEffect(() => {
-    pessoasApi();
+    handlePessoasApi();
   }, []);
 
-  //  const pessoas = ["Bruno", "Jorge", "Thami", "Lele", "Paulo"];
-  //const listaPessoas = pessoas.map((c) => <li>{c.data.name}</li>);
   return (
     <>
       {!pessoas ? (
@@ -32,9 +37,9 @@ export default function ListaDashboard() {
         <>
           <FundoLista>
             <h2>Histórico de chegada</h2>
-            {pessoas.map((pessoa, key) => {
+            {pessoas.map((pessoa) => {
               return (
-                <ListaComponente>
+                <ListaComponente key={pessoa.id}>
                   <h1>{pessoa.User.name}</h1>
                   <h1>{pessoa.date}</h1>
                 </ListaComponente>

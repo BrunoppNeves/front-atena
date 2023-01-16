@@ -1,15 +1,30 @@
+import React, { useState } from "react";
 import { HeaderContainer } from "./style";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.svg";
 
 export default function Header() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [user, setUser] = useState(null);
+
+  const handleLogout = () => {
+    setUser({});
+    setEmail("");
+    setSenha("");
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
     <HeaderContainer>
       <div className="headerLeft">
         <img src={logo} alt="logo"></img>
         <div className="usuario">
           <h3>bruno.neves9@unifor.br</h3>
-          <h3 className="logout">Logout</h3>
+          <h3 className="logout" onClick={handleLogout}>
+            Logout
+          </h3>
         </div>
       </div>
       <div className="navegacao">

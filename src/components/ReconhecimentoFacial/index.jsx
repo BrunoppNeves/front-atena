@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
-import * as faceapi from "face-api.js";
 import { ReconhecimentoFacialContainer } from "./style.js";
+import * as faceapi from "face-api.js";
 
 export default function ReconhecimentoFacial() {
   const videoRef = useRef();
@@ -38,8 +38,6 @@ export default function ReconhecimentoFacial() {
     setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks()
-        .withFaceExpressions();
 
       canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(videoRef.current);
       faceapi.matchDimensions(canvasRef.current, {
@@ -53,14 +51,13 @@ export default function ReconhecimentoFacial() {
       });
 
       faceapi.draw.drawDetections(canvasRef.current, resized);
-      faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
-      faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
-    }, 1000);
+    }, 5000);
   };
 
   return (
     <ReconhecimentoFacialContainer>
       <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
+      {/* <canvas ref={canvasRef} className='app__canvas' /> */}
     </ReconhecimentoFacialContainer>
   );
 }

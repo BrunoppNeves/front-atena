@@ -7,6 +7,7 @@ export default function BotaoDashboard({ title, showIcon, icon, router, msg }) {
   useEffect(() => {
     handleClick();
   }, []);
+
   async function handleClick(rota, msg) {
     await api
       .get(rota)
@@ -20,6 +21,7 @@ export default function BotaoDashboard({ title, showIcon, icon, router, msg }) {
         console.error("erro" + err);
       });
   }
+  
   return (
     <>
       <BotaoDashboardContainer>
