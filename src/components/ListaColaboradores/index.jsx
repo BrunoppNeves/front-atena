@@ -7,16 +7,46 @@ import lixeira from "../../assets/images/Lixeira.svg";
 import info from "../../assets/images/info.png";
 import adicionar from "../../assets/images/AdicionarUsuario.svg";
 import ModalInfo from "../ModalInfo";
+import ModalAddColaborador from "../ModalAddColaborador";
+import ModalEditarColaborador from "../ModalEditarColaborador";
 
 export default function ListaColaboradores() {
   const token = localStorage.getItem("token");
 
   const [pessoas, setPessoas] = useState();
+  const [Pessoa, setPessoa] = useState();
   const [showModalInfo, setShowModalInfo] = useState(false);
+  const [showModalAdd, setShowModalAdd] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
 
-  const handleSetShowModalInfo = () => {
+  async function handleSetShowModalInfo(id) {
+    await getPeople(id);
     setShowModalInfo(!showModalInfo);
-  };
+  }
+
+  async function handleSetShowModalAdd() {
+    setShowModalAdd(!showModalAdd);
+  }
+
+  async function handleSetShowModalEdit() {
+    setShowModalEdit(!showModalEdit);
+  }
+
+  async function getPeople(id) {
+    await api
+      .get(`/users/find/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setPessoa(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.error("erro" + err);
+      });
+  }
 
   async function handlePessoasApi() {
     await api
@@ -26,7 +56,6 @@ export default function ListaColaboradores() {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setPessoas(response.data);
       })
       .catch((err) => {
@@ -35,14 +64,20 @@ export default function ListaColaboradores() {
   }
 
   async function handleDelete(id) {
-    await api.delete(`/users/delete/${id}`).then((response) => {
-      console.log(id);
-      console.log(response.data);
-      if (response.status === 200) {
-        console.log("sucesso");
-        alert(`deletado com sucesso`);
-      }
-    });
+    await api
+      .delete(`/users/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(id);
+        console.log(response.data);
+        if (response.status === 200) {
+          console.log("sucesso");
+          alert(`deletado com sucesso`);
+        }
+      });
 
     handlePessoasApi().catch((err) => {
       console.error("erro" + err);
@@ -70,7 +105,14 @@ export default function ListaColaboradores() {
               <h1>Aniversario</h1>
               <h1>Competencia</h1>
               <h1>Vinculo</h1>
-              <BotaoColaboradores icon={adicionar} />
+              <BotaoColaboradores icon={adicionar} onClick={handleSetShowModalAdd} />
+              {showModalAdd && (
+                <ModalAddColaborador
+                  Cancelar={handleSetShowModalAdd}
+                  Confirmar={handleSetShowModalAdd}
+                  CloseTab={handleSetShowModalAdd}
+                />
+              )}
             </DivListaUserContainer>
             {pessoas.map((pessoa, key) => {
               return (
@@ -83,22 +125,56 @@ export default function ListaColaboradores() {
                   <h1>{pessoa.competencia}</h1>
                   <h1>{pessoa.vinculo}</h1>
                   <DivButtonsContainer>
-                    <BotaoColaboradores icon={info} onClick={handleSetShowModalInfo} />
-                    <BotaoColaboradores icon={botaoEditar} router={`/users/delete/`} />
                     <BotaoColaboradores
-                      icon={lixeira}
-                      //router={`/users/delete/${pessoa.id}`}
-                      onClick={() => handleDelete(pessoa.id)}
+                      icon={info}
+                      onClick={() => handleSetShowModalInfo(pessoa.id)}
+                      Cancelar={handleSetShowModalAdd}
                     />
+                    {showModalInfo && (
+                      <ModalInfo
+                        title="Informações do Colaborador"
+                        onClick={handleSetShowModalInfo}
+                        nome={Pessoa.name}
+                        matricula={Pessoa.matricula}
+                        time={Pessoa.time}
+                        aniversario={Pessoa.aniversario}
+                        competencia={Pessoa.competencia}
+                        vinculo={Pessoa.vinculo}
+                        telefone={Pessoa.telefone}
+                        email={Pessoa.email}
+                        gitlab={Pessoa.gitlab}
+                        alocacao={Pessoa.alocacao}
+                        adimissao={Pessoa.adimissao}
+                        escolaridade={Pessoa.escolaridade}
+                        status={Pessoa.status}
+                        historicos={Pessoa.histories}
+                      />
+                    )}
+                    <BotaoColaboradores icon={botaoEditar} onClick={handleSetShowModalEdit } />
+                    {showModalEdit && (
+                      <ModalEditarColaborador
+                        Cancelar={handleSetShowModalEdit}
+                        getNome={Pessoa.name}
+                        getMatricula={Pessoa.matricula}
+                        getTime={Pessoa.time}
+                        getAniversario={Pessoa.aniversario}
+                        getCompetencia={Pessoa.competencia}
+                        getVinculo={Pessoa.vinculo}
+                        getTelefone={Pessoa.telefone}
+                        getEmail={Pessoa.email}
+                        getGitlab={Pessoa.gitlab}
+                        getAlocacao={Pessoa.alocacao}
+                        getAdmissao={Pessoa.adimissao}
+                        getEscolaridade={Pessoa.escolaridade}
+                        getStatus={Pessoa.status}
+                        getCompetencias={Pessoa.competencia}
+                      />
+                    )}
+                    <BotaoColaboradores icon={lixeira} onClick={() => handleDelete(pessoa.id)} />
                   </DivButtonsContainer>
                 </DivListaUserContainer>
               );
             })}
-              {showModalInfo &&
-                <ModalInfo
-                  title="Informações do Colaborador"
-                  onClick={handleSetShowModalInfo}
-                />}
           </DivCentralContainer>
         </>
       )}

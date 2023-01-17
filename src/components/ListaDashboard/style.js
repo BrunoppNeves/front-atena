@@ -25,6 +25,28 @@ export const FundoLista = styled.div`
   height: 70vh;
   border-radius: 16px;
   margin: 2% 0 0 0.5%;
+  padding-bottom: 0.8rem;
+  overflow: auto;
+  scrollbar-color: dark;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5d3dc3;
+  }
 
   h2 {
     color: white;

@@ -48,10 +48,11 @@ export const DivListaUserContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 18px;
-    font-weight: bold;
     padding: 0.4rem 1.5rem;
   }
   button {
+    display: flex;
+    justify-content: center;
     border: unset;
     margin-right: 2em;
   }
