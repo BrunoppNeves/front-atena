@@ -28,7 +28,8 @@ export default function ListaColaboradores() {
     setShowModalAdd(!showModalAdd);
   }
 
-  async function handleSetShowModalEdit() {
+  async function handleSetShowModalEdit(id) {
+    await getPeople(id);
     setShowModalEdit(!showModalEdit);
   }
 
@@ -150,7 +151,7 @@ export default function ListaColaboradores() {
                         historicos={Pessoa.histories}
                       />
                     )}
-                    <BotaoColaboradores icon={botaoEditar} onClick={handleSetShowModalEdit } />
+                    <BotaoColaboradores icon={botaoEditar} onClick={() => handleSetShowModalEdit(pessoa.id) } />
                     {showModalEdit && (
                       <ModalEditarColaborador
                         Cancelar={handleSetShowModalEdit}
