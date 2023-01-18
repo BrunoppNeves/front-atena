@@ -20,16 +20,17 @@ export default function ListaColaboradores() {
   const [showModalEdit, setShowModalEdit] = useState(false);
 
   async function handleSetShowModalInfo(id) {
-    await getPeople(id);
+    if (showModalInfo === false) await getPeople(id);
     setShowModalInfo(!showModalInfo);
   }
 
   async function handleSetShowModalAdd() {
+    if (showModalAdd === false) await getPeople();
     setShowModalAdd(!showModalAdd);
   }
 
   async function handleSetShowModalEdit(id) {
-    await getPeople(id);
+    if (showModalEdit === false) await getPeople(id);
     setShowModalEdit(!showModalEdit);
   }
 
@@ -145,15 +146,16 @@ export default function ListaColaboradores() {
                         email={Pessoa.email}
                         gitlab={Pessoa.gitlab}
                         alocacao={Pessoa.alocacao}
-                        adimissao={Pessoa.adimissao}
+                        admissao={Pessoa.admissao}
                         escolaridade={Pessoa.escolaridade}
                         status={Pessoa.status}
                         historicos={Pessoa.histories}
                       />
                     )}
-                    <BotaoColaboradores icon={botaoEditar} onClick={() => handleSetShowModalEdit(pessoa.id) } />
+                    <BotaoColaboradores icon={botaoEditar} onClick={() => handleSetShowModalEdit(pessoa.id)} />
                     {showModalEdit && (
                       <ModalEditarColaborador
+                        id={pessoa.id}
                         Cancelar={handleSetShowModalEdit}
                         getNome={Pessoa.name}
                         getMatricula={Pessoa.matricula}
@@ -165,7 +167,7 @@ export default function ListaColaboradores() {
                         getEmail={Pessoa.email}
                         getGitlab={Pessoa.gitlab}
                         getAlocacao={Pessoa.alocacao}
-                        getAdmissao={Pessoa.adimissao}
+                        getAdmissao={Pessoa.admissao}
                         getEscolaridade={Pessoa.escolaridade}
                         getStatus={Pessoa.status}
                         getCompetencias={Pessoa.competencia}

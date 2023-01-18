@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import closeIcon from "../../assets/images/closeTab.svg";
 import api from "../../services/api";
+import UploadFotos from "../Upload";
+import ImageUpload from "../ImageUpload";
 
 import {
   DivBackgroundContainer,
@@ -36,7 +38,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
       matricula: matricula,
       escolaridade: escolaridade,
       aniversario: aniversario,
-      adimissao: admissao,
+      admissao: admissao,
       competencia: competencia,
       alocacao: alocacao,
       time: time,
@@ -105,7 +107,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
                 }
               </DivInputContainer>
               <DivInputContainer>
-                <h2>Aniversário</h2>
+                <h2>Aniversário (mês-dia-ano)</h2>
                 {
                   <input
                     type="text"
@@ -116,7 +118,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
                 }
               </DivInputContainer>
               <DivInputContainer>
-                <h2>Admissão</h2>
+                <h2>Admissão (mês-dia-ano)</h2>
                 {
                   <input
                     type="text"
@@ -208,7 +210,8 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
             </DivRightContainer>
           </DivMidContainer>
           <DivButtonContainer>
-            <button onClick={Cancelar}>Cancelar</button>
+            {/* <UploadFotos /> */}
+            <ImageUpload></ImageUpload>
             <button type="submit">Confirmar</button>
           </DivButtonContainer>
         </DivModalAddColaboradorContainer>

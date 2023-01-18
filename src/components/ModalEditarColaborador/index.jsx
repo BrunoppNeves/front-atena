@@ -42,32 +42,48 @@ export default function ModalEditColaborador({
   const [email, setEmail] = useState("");
   const [gitlab, setGitlab] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [Pessoa, setPessoa] = useState();
 
   const token = localStorage.getItem("token");
 
-  const handleGetUser = async (id) => {
+  const handleEditar = async (e) => {
+    e.preventDefault();
+    const user = {};
+    if (nome !== "") user.name = nome;
+    if (matricula !== "") user.matricula = matricula;
+    if (escolaridade !== "") user.escolaridade = escolaridade;
+    if (aniversario !== "") user.aniversario = aniversario;
+    if (admissao !== "") user.admissao = admissao;
+    if (competencia !== "") user.competencia = competencia;
+    if (alocacao !== "") user.alocacao = alocacao;
+    if (time !== "") user.time = time;
+    if (vinculo !== "") user.vinculo = vinculo;
+    if (email !== "") user.email = email;
+    if (gitlab !== "") user.gitlab = gitlab;
+    if (telefone !== "") user.telefone = telefone;
     await api
-      .get(`/users/find/${id}`, {
+      .put(`/users/update/${id}`, user, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setPessoa(response.data);
-        console.log(response.data);
+        console.log(response);
+        alert("Colaborador editado com sucesso");
+        window.location.href = "/Colaboradores";
       })
-      .catch((err) => {
-        console.error("erro" + err);
+      .catch((error) => {
+        console.log(error);
+        alert("Erro ao editar colaborador, verifique os campos");
       });
   };
 
   return (
     <DivBackgroundContainer>
-      <form onSubmit={handleGetUser}>
+      <form onSubmit={handleEditar}>
         <DivModalAddColaboradorContainer>
           <DivTopModalContainer>
             <h1>Editar Colaborador</h1>
+            <button onClick={Cancelar}>{<img src={closeIcon} alt="icon" />}</button>
           </DivTopModalContainer>
           <DivMidContainer>
             <DivLeftContainer>
@@ -98,7 +114,7 @@ export default function ModalEditColaborador({
                 }
               </DivInputContainer>
               <DivInputContainer>
-                <h2>Aniversário</h2>
+                <h2>Aniversário (mês,dia,ano)</h2>
                 {
                   <input
                     type="text"
@@ -109,7 +125,7 @@ export default function ModalEditColaborador({
                 }
               </DivInputContainer>
               <DivInputContainer>
-                <h2>Admissão</h2>
+                <h2>Admissão (mês-dia-ano)</h2>
                 {
                   <input
                     type="text"
@@ -145,14 +161,7 @@ export default function ModalEditColaborador({
               </DivInputContainer>
               <DivInputContainer>
                 <h2>Time</h2>
-                {
-                  <input
-                    type="text"
-                    value={time}
-                    placeholder={`${getTime}`}
-                    onChange={({ target }) => setTime(target.value)}
-                  />
-                }
+                {<input type="text" value={time} placeholder={`${getTime}`} onChange={({ target }) => setTime(target.value)} />}
               </DivInputContainer>
               <DivInputContainer>
                 <h2>Vínculo</h2>
@@ -201,7 +210,6 @@ export default function ModalEditColaborador({
             </DivRightContainer>
           </DivMidContainer>
           <DivButtonContainer>
-            <button type="button" onClick={Cancelar}>Cancelar</button>
             <button type="submit">Confirmar</button>
           </DivButtonContainer>
         </DivModalAddColaboradorContainer>

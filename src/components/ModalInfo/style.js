@@ -48,6 +48,7 @@ export const TopModalContainer = styled.div`
     width: 100%;
     height: 100%;
     color: white;
+    padding-left: 5rem;
   }
 
   button {

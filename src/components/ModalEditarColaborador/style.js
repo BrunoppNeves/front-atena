@@ -115,8 +115,10 @@ export const DivButtonContainer = styled.div`
   display: flex;
 
   button {
+    display: flex;
+    align-items: center;
     width: 10rem;
-    height: 2rem;
+    height: 3rem;
     margin: 1rem 2rem 1rem;
     background-color: #9747ff;
     border-radius: 5px;

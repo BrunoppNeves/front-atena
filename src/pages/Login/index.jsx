@@ -44,7 +44,7 @@ export default function Login() {
             </InputContainer>
             <InputContainer>
               <img src={senhaIcon} alt="icon" />
-              {<input type="text" value={senha} placeholder="Senha" onChange={({ target }) => setSenha(target.value)} />}
+              {<input type="password" value={senha} placeholder="Senha" onChange={({ target }) => setSenha(target.value)} />}
             </InputContainer>
             <ButtonContainer>
               <button type="submit">Entrar</button>

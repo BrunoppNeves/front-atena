@@ -39,6 +39,7 @@ export const DivTopModalContainer = styled.div`
     width: 100%;
     height: 100%;
     color: white;
+    padding-left: 5rem;
   }
 
   button {
@@ -113,19 +114,27 @@ export const DivRightContainer = styled.div`
 
 export const DivButtonContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 10rem;
-    height: 2rem;
+    height: 3rem;
     margin: 1rem 2rem 1rem;
-    background-color: #9747ff;
+    background-color: #9747ff80;
     border-radius: 5px;
     border: solid 1px white;
     color: white;
     font-weight: bold;
     font-size: 1rem;
     :hover {
-      background-color: #9747ff80;
+      background-color: #9747ff;
+      transition: 0.30s ease-in-out;
     }
   }
 `;
