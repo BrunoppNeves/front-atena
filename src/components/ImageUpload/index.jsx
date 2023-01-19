@@ -2,26 +2,29 @@ import React, { useState, useEffect } from "react";
 
 import { EnviaFotoContainer } from "./style";
 
-export default function ImageUpload() {
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
-
+export default function ImageUpload(props) {
   useEffect(() => {
-    if (images.length > 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
-  }, [images]);
-
+    if (props.images.length > 2) {
+      const newImageUrls = [];
+      props.images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+      props.setImageURLs(newImageUrls);
+      console.log(props.images);  
+    }
+  }, [props.images]);
+  
   function onImageChange(e) {
-    setImages([...e.target.files]);
-    console.log(images);
+    if (e.target.files.length > 2) {
+      console.log('aaaaaaaaaaaaaa');
+      alert("Por favor, selecione no máximo 2 fotos");
+      return;
+    }
+    props.setImages([...e.target.files]);
   }
 
   return (
     <EnviaFotoContainer>
       <input type="file" multiple accept="image/jpeg" onChange={onImageChange} />
-      {imageURLs.map((imageSrc) => (
+      {props.imageURLs.map((imageSrc) => (
         <img src={imageSrc} alt="uploaded" />
       ))}
     </EnviaFotoContainer>

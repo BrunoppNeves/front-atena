@@ -28,8 +28,36 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
   const [email, setEmail] = useState("");
   const [gitlab, setGitlab] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
+  const [idFoto, setIdFoto] = useState("");
+  const [contador, setContador] = useState(0);
 
   const token = localStorage.getItem("token");
+
+  function handleImageUpload() {
+    setContador(contador + 1);
+    const formData = new FormData();
+    formData.append("foto1", images[0]);
+    formData.append("foto2", images[1]);
+    console.log(idFoto);
+    api
+      .post(`/images/upload/${idFoto}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        alert("Colaborador cadastrado com sucesso!");
+        // window.location.href = "/Colaboradores";
+      })
+      .catch((error) => {
+        alert("Erro ao carregar fotos, tentnado novamente!");
+        if (contador <= 3) handleCreateUser();
+        console.log(error);
+      });
+  }
 
   const handleCreateUser = async (e) => {
     e.preventDefault();
@@ -47,6 +75,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
       gitlab: gitlab,
       telefone: telefone,
     };
+    console.log(newUser);
     await api
       .post("/users/create", newUser, {
         headers: {
@@ -54,13 +83,34 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
         },
       })
       .then((response) => {
-        alert("Colaborador cadastrado com sucesso!");
-        window.location.href = "/Colaboradores";
+        setIdFoto(response.data.id);
+        //alert("Colaborador cadastrado com sucesso!");
+        handleImageUpload();
       })
       .catch((error) => {
         alert("Erro ao cadastrar colaborador!");
         console.log(error);
       });
+    // const formData = new FormData();
+    // formData.append("foto1", images[0]);
+    // // formData.append("foto2", images[1]);
+    // console.log(idFoto);
+    // api
+    //   .post(`/images/upload/${idFoto}`, formData, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     alert("Colaborador cadastrado com sucesso!");
+    //     // window.location.href = "/Colaboradores";
+    //   })
+    //   .catch((error) => {
+    //     alert("Erro ao cadastrar colaborador!");
+
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -211,7 +261,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
           </DivMidContainer>
           <DivButtonContainer>
             {/* <UploadFotos /> */}
-            <ImageUpload></ImageUpload>
+            <ImageUpload images={images} setImages={setImages} imageURLs={imageURLs} setImageURLs={setImageURLs} />
             <button type="submit">Confirmar</button>
           </DivButtonContainer>
         </DivModalAddColaboradorContainer>

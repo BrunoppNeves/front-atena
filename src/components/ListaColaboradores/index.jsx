@@ -25,7 +25,7 @@ export default function ListaColaboradores() {
   }
 
   async function handleSetShowModalAdd() {
-    if (showModalAdd === false) await getPeople();
+    //if (showModalAdd === false) await getPeople();
     setShowModalAdd(!showModalAdd);
   }
 
@@ -43,7 +43,7 @@ export default function ListaColaboradores() {
       })
       .then((response) => {
         setPessoa(response.data);
-        console.log(response.data);
+        console.log(response.data.fotos[0]);
       })
       .catch((err) => {
         console.error("erro" + err);
@@ -136,20 +136,22 @@ export default function ListaColaboradores() {
                       <ModalInfo
                         title="Informações do Colaborador"
                         onClick={handleSetShowModalInfo}
-                        nome={Pessoa.name}
-                        matricula={Pessoa.matricula}
-                        time={Pessoa.time}
-                        aniversario={Pessoa.aniversario}
-                        competencia={Pessoa.competencia}
-                        vinculo={Pessoa.vinculo}
-                        telefone={Pessoa.telefone}
-                        email={Pessoa.email}
-                        gitlab={Pessoa.gitlab}
-                        alocacao={Pessoa.alocacao}
-                        admissao={Pessoa.admissao}
-                        escolaridade={Pessoa.escolaridade}
-                        status={Pessoa.status}
-                        historicos={Pessoa.histories}
+                        nome={Pessoa.user.name}
+                        matricula={Pessoa.user.matricula}
+                        time={Pessoa.user.time}
+                        aniversario={Pessoa.user.aniversario}
+                        competencia={Pessoa.user.competencia}
+                        vinculo={Pessoa.user.vinculo}
+                        telefone={Pessoa.user.telefone}
+                        email={Pessoa.user.email}
+                        gitlab={Pessoa.user.gitlab}
+                        alocacao={Pessoa.user.alocacao}
+                        admissao={Pessoa.user.admissao}
+                        escolaridade={Pessoa.user.escolaridade}
+                        status={Pessoa.user.status}
+                        historicos={Pessoa.user.histories}
+                        id={Pessoa.user.id}
+                        fotos={Pessoa.fotos}
                       />
                     )}
                     <BotaoColaboradores icon={botaoEditar} onClick={() => handleSetShowModalEdit(pessoa.id)} />
@@ -157,20 +159,20 @@ export default function ListaColaboradores() {
                       <ModalEditarColaborador
                         id={pessoa.id}
                         Cancelar={handleSetShowModalEdit}
-                        getNome={Pessoa.name}
-                        getMatricula={Pessoa.matricula}
-                        getTime={Pessoa.time}
-                        getAniversario={Pessoa.aniversario}
-                        getCompetencia={Pessoa.competencia}
-                        getVinculo={Pessoa.vinculo}
-                        getTelefone={Pessoa.telefone}
-                        getEmail={Pessoa.email}
-                        getGitlab={Pessoa.gitlab}
-                        getAlocacao={Pessoa.alocacao}
-                        getAdmissao={Pessoa.admissao}
-                        getEscolaridade={Pessoa.escolaridade}
-                        getStatus={Pessoa.status}
-                        getCompetencias={Pessoa.competencia}
+                        getNome={Pessoa.user.name}
+                        getMatricula={Pessoa.user.matricula}
+                        getTime={Pessoa.user.time}
+                        getAniversario={Pessoa.user.aniversario}
+                        getCompetencia={Pessoa.user.competencia}
+                        getVinculo={Pessoa.user.vinculo}
+                        getTelefone={Pessoa.user.telefone}
+                        getEmail={Pessoa.user.email}
+                        getGitlab={Pessoa.user.gitlab}
+                        getAlocacao={Pessoa.user.alocacao}
+                        getAdmissao={Pessoa.user.admissao}
+                        getEscolaridade={Pessoa.user.escolaridade}
+                        getStatus={Pessoa.user.status}
+                        getCompetencias={Pessoa.user.competencia}
                       />
                     )}
                     <BotaoColaboradores icon={lixeira} onClick={() => handleDelete(pessoa.id)} />

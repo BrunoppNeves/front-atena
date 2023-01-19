@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "react-slideshow-image/dist/styles.css";
 
 export const BackgroundContainer = styled.div`
   position: fixed;
@@ -106,6 +107,18 @@ export const DivFotoContainer = styled.div`
   height: 15rem;
   border: 2px solid white;
   border-radius: 10px;
+  margin-left: 0rem;
+  div {
+    width: 100%;
+    height: 100%;
+    
+    img {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
 `;
 
 export const DivHistoricoContainer = styled.div`
