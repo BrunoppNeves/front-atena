@@ -31,7 +31,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
   const [idFoto, setIdFoto] = useState("");
-  const [contador, setContador] = useState(0);
+  let [contador, setContador] = useState(0);
 
   const token = localStorage.getItem("token");
 

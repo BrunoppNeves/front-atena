@@ -14,7 +14,7 @@ import {
   DivButtonsContainer,
 } from "./style";
 import ListaDashboard from "../../components/ListaDashboard/";
-import ReconhecimentoFacial from "../../components/ReconhecimentoFacial";
+import ReconhecimentoFacial from "../../components/ReconhecimentoFacial/index";
 
 export default function Dashboard() {
   const token = localStorage.getItem("token");

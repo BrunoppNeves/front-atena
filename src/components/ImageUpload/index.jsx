@@ -23,7 +23,7 @@ export default function ImageUpload(props) {
 
   return (
     <EnviaFotoContainer>
-      <input type="file" multiple accept="image/jpeg" onChange={onImageChange} />
+      <input type="file" multiple accept="image/png" onChange={onImageChange} />
       {props.imageURLs.map((imageSrc) => (
         <img src={imageSrc} alt="uploaded" />
       ))}
