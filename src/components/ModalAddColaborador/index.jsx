@@ -230,7 +230,7 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
                   <input
                     type="text"
                     value={email}
-                    placeholder="Informe o email do colaborador. Ex: seuemail@unifor.br"
+                    placeholder="Informe o email do colaborador. Ex: user@unifor.br"
                     onChange={({ target }) => setEmail(target.value)}
                   />
                 }
