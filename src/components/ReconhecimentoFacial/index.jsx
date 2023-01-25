@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 import api from "../../services/api";
-
+import { Container } from "./style";
 
 export default function ReconhecimentoFacial() {
-  const videoHeight = 480;
-  const videoWidth = 640;
+  const videoHeight = window.innerHeight - (window.innerHeight / 20) * 100;
+  const videoWidth = window.innerWidth - 400;
   const [initializing, setInitializing] = React.useState(false);
   const videoRef = useRef();
   const canvasRef = useRef();
@@ -113,9 +113,10 @@ export default function ReconhecimentoFacial() {
   };
 
   return (
-    <div>
-      <video ref={videoRef} autoPlay muted height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay} />
-      <canvas ref={canvasRef} />
-    </div>
+    <Container>
+      <video ref={videoRef} autoPlay muted height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay}>
+        <canvas ref={canvasRef} />
+      </video>
+    </Container>
   );
 }

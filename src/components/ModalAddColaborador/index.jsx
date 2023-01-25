@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import closeIcon from "../../assets/images/closeTab.svg";
 import api from "../../services/api";
-import UploadFotos from "../Upload";
 import ImageUpload from "../ImageUpload";
 
 import {
