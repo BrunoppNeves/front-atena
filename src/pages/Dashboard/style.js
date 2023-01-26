@@ -33,22 +33,23 @@ export const DivRightContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  /* background-color: gray; */
-  margin-top: 2%;
-  /* margin: 2% 0 0 0.5%; */
-  height: 70vh;
   width: 42vw;
+  height: 95%;
+  margin-right: 0.5%;
 `;
 export const DivBottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
-  height: 100%;
+  height: 75%;
 `;
 
 export const DivVideoContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 42vw;
+  height: 31.1vw;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 export const DivButtonsContainer = styled.div`

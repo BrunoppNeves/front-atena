@@ -29,19 +29,18 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
   const [telefone, setTelefone] = useState("");
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
-  const [idFoto, setIdFoto] = useState("");
-  let [contador, setContador] = useState(0);
 
   const token = localStorage.getItem("token");
 
-  function handleImageUpload() {
-    setContador(contador + 1);
+  async function handleImageUpload(id) {
     const formData = new FormData();
     formData.append("foto1", images[0]);
     formData.append("foto2", images[1]);
-    console.log(idFoto);
-    api
-      .post(`/images/upload/${idFoto}`, formData, {
+    formData.append("foto3", images[2]);
+    formData.append("foto4", images[3]);
+    formData.append("foto5", images[4]);
+    await api
+      .post(`/images/upload/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -49,67 +48,47 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
       })
       .then((response) => {
         alert("Colaborador cadastrado com sucesso!");
-        // window.location.href = "/Colaboradores";
+        window.location.href = "/Colaboradores";
       })
       .catch((error) => {
-        alert("Erro ao carregar fotos, tentnado novamente!");
-        if (contador <= 3) handleCreateUser();
         console.log(error);
       });
   }
 
   const handleCreateUser = async (e) => {
     e.preventDefault();
-    const newUser = {
-      name: nome,
-      matricula: matricula,
-      escolaridade: escolaridade,
-      aniversario: aniversario,
-      admissao: admissao,
-      competencia: competencia,
-      alocacao: alocacao,
-      time: time,
-      vinculo: vinculo,
-      email: email,
-      gitlab: gitlab,
-      telefone: telefone,
-    };
-    console.log(newUser);
-    await api
-      .post("/users/create", newUser, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setIdFoto(response.data.id);
-        //alert("Colaborador cadastrado com sucesso!");
-        handleImageUpload();
-      })
-      .catch((error) => {
-        alert("Erro ao cadastrar colaborador!");
-        console.log(error);
-      });
-    // const formData = new FormData();
-    // formData.append("foto1", images[0]);
-    // // formData.append("foto2", images[1]);
-    // console.log(idFoto);
-    // api
-    //   .post(`/images/upload/${idFoto}`, formData, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((response) => {
-    //     alert("Colaborador cadastrado com sucesso!");
-    //     // window.location.href = "/Colaboradores";
-    //   })
-    //   .catch((error) => {
-    //     alert("Erro ao cadastrar colaborador!");
-
-    //     console.log(error);
-    //   });
+    if (images.length !== 5) {
+      alert("Por favor, selecione 5 fotos");
+    } else {
+      const newUser = {
+        name: nome,
+        matricula: matricula,
+        escolaridade: escolaridade,
+        aniversario: aniversario,
+        admissao: admissao,
+        competencia: competencia,
+        alocacao: alocacao,
+        time: time,
+        vinculo: vinculo,
+        email: email,
+        gitlab: gitlab,
+        telefone: telefone,
+      };
+      await api
+        .post("/users/create", newUser, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          handleImageUpload(response.data.id);
+        })
+        .catch((error) => {
+          alert("Erro ao cadastrar colaborador!");
+          console.log(error);
+        });
+    }
   };
 
   return (

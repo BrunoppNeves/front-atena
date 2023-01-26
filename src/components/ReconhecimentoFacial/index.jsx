@@ -4,8 +4,9 @@ import api from "../../services/api";
 import { Container } from "./style";
 
 export default function ReconhecimentoFacial() {
-  const videoHeight = window.innerHeight - (window.innerHeight / 20) * 100;
-  const videoWidth = window.innerWidth - 400;
+  const porcentagem = 60;
+  const videoHeight = window.innerHeight * (porcentagem / 100);
+  const videoWidth = window.innerWidth * (porcentagem / 100);
   const [initializing, setInitializing] = React.useState(false);
   const videoRef = useRef();
   const canvasRef = useRef();
@@ -30,6 +31,7 @@ export default function ReconhecimentoFacial() {
       ]).then(startVideo);
     };
     loadModels();
+    loadLabels();
   }, []);
 
   const getImages = async () => {
@@ -42,6 +44,9 @@ export default function ReconhecimentoFacial() {
       .then((response) => {
         setPastas(response.data.listaPastas);
         setFotos(response.data.listaFotos);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -77,7 +82,7 @@ export default function ReconhecimentoFacial() {
       pastas.map(async (label, key) => {
         const descriptions = [];
         for (let i = 0; i <= fotos[key].length - 1; i++) {
-          const img = await faceapi.fetchImage(require(`../../assets/Persons/${label}/${fotos[key][0]}`));
+          const img = await faceapi.fetchImage(require(`../../assets/Persons/${label}/${fotos[key][i]}`));
           const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
           descriptions.push(detections.descriptor);
         }
@@ -104,10 +109,12 @@ export default function ReconhecimentoFacial() {
         .withAgeAndGender()
         .withFaceDescriptors();
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      const faceMatcher = new faceapi.FaceMatcher(labels, 0.4);
+      const faceMatcher = new faceapi.FaceMatcher(labels, 0.3);
       const results = resizedDetections.map((d) => faceMatcher.findBestMatch(d.descriptor));
-      if (results[0].label !== "unknown") await registro(results[0].label);
+      //if (results[0].label !== "unknown") await registro(results[0].label);
+      console.log("aqui2");
       console.log(results[0].label);
+      console.log("aqui3");
       //console.log(resizedDetections);
     }, 5000);
   };

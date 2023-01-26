@@ -8,7 +8,6 @@ import {
   TopModalContainer,
   DivLeftContainer,
   DivCenterContainer,
-  DivStatusContainer,
   DivRightContainer,
   DivFotoContainer,
   DivHistoricoContainer,
@@ -34,7 +33,6 @@ export default function ModalInfo({
   curso,
   competencia,
   admissao,
-  status,
   historicos,
   fotos,
   id,
@@ -157,9 +155,6 @@ export default function ModalInfo({
             <h1>Curso: {curso} </h1>
             <h1>Competencia: {competencia} </h1>
             <h1>Admissao: {admissao} </h1>
-            <DivStatusContainer>
-              <h1 id="status">Ferias: {status ? <p style={{ color: "red" }}>Sim</p> : <p style={{ color: "green" }}>Não</p>}</h1>
-            </DivStatusContainer>
           </DivCenterContainer>
           <DivRightContainer>
             <DivHistoricoContainer>

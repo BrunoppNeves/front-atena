@@ -10,7 +10,7 @@ export const BackgroundContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(0 0 0 / 4%);
+  background-color: rgb(0 0 0 / 20%);
   h1 {
     color: white;
     margin-top: 7%;
@@ -80,16 +80,6 @@ export const DivCenterContainer = styled.div`
   flex-direction: column;
   width: 40%;
   height: 100%;
-`;
-
-export const DivStatusContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 10%;
-
-  p {
-    margin-left: 1rem;
-  }
 `;
 
 export const DivRightContainer = styled.div`

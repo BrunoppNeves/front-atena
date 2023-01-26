@@ -3,12 +3,11 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 67%;
+  width: 100%;
   align-items: center;
-
+  padding-top: 3%;
   .headerLeft {
     display: flex;
-    padding-top: 3%;
   }
 
   img {
@@ -23,15 +22,19 @@ export const HeaderContainer = styled.div`
   }
 
   .logout {
-    color: #ff0000;
+    color: rgba(255, 0, 0, 0.7);
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+    width: 3.2rem;
+    :hover {
+      color: rgba(255, 0, 0, 1);
+    }
   }
 
   .navegacao {
-    padding-left: 45%;
-    cursor: pointer;
+    margin-top: -2%;
+    margin-right: 0.5%;
   }
   a:hover {
     color: #6f4be0;
@@ -41,6 +44,6 @@ export const HeaderContainer = styled.div`
     text-decoration: none;
     color: white;
     font-weight: bold;
-    margin: 20px;
+    margin-left: 20px;
   }
 `;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import closeIcon from "../../assets/images/closeTab.svg";
 import api from "../../services/api";
+import ImageUpload from "../ImageUpload";
 
 import {
   DivBackgroundContainer,
@@ -42,39 +43,87 @@ export default function ModalEditColaborador({
   const [email, setEmail] = useState("");
   const [gitlab, setGitlab] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
 
   const token = localStorage.getItem("token");
 
-  const handleEditar = async (e) => {
-    e.preventDefault();
-    const user = {};
-    if (nome !== "") user.name = nome;
-    if (matricula !== "") user.matricula = matricula;
-    if (escolaridade !== "") user.escolaridade = escolaridade;
-    if (aniversario !== "") user.aniversario = aniversario;
-    if (admissao !== "") user.admissao = admissao;
-    if (competencia !== "") user.competencia = competencia;
-    if (alocacao !== "") user.alocacao = alocacao;
-    if (time !== "") user.time = time;
-    if (vinculo !== "") user.vinculo = vinculo;
-    if (email !== "") user.email = email;
-    if (gitlab !== "") user.gitlab = gitlab;
-    if (telefone !== "") user.telefone = telefone;
+  async function handleImageUpload(id) {
+    const formData = new FormData();
+    formData.append("foto1", images[0]);
+    formData.append("foto2", images[1]);
+    formData.append("foto3", images[2]);
+    formData.append("foto4", images[3]);
+    formData.append("foto5", images[4]);
     await api
-      .put(`/users/update/${id}`, user, {
+      .post(`/images/upload/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        console.log(response);
-        alert("Colaborador editado com sucesso");
+        alert("Colaborador cadastrado com sucesso!");
         window.location.href = "/Colaboradores";
       })
       .catch((error) => {
         console.log(error);
-        alert("Erro ao editar colaborador, verifique os campos");
       });
+  }
+
+  const handleEditar = async (e) => {
+    e.preventDefault();
+    if (images.length > 0 && images.length !== 5) {
+      alert("Por favor, selecione 5 fotos");
+    } else {
+      const newUser = {
+        name: nome,
+        matricula: matricula,
+        escolaridade: escolaridade,
+        aniversario: aniversario,
+        admissao: admissao,
+        competencia: competencia,
+        alocacao: alocacao,
+        time: time,
+        vinculo: vinculo,
+        email: email,
+        gitlab: gitlab,
+        telefone: telefone,
+      };
+      const user = {};
+      if (nome !== "") user.name = nome;
+      if (matricula !== "") user.matricula = matricula;
+      if (escolaridade !== "") user.escolaridade = escolaridade;
+      if (aniversario !== "") user.aniversario = aniversario;
+      if (admissao !== "") user.admissao = admissao;
+      if (competencia !== "") user.competencia = competencia;
+      if (alocacao !== "") user.alocacao = alocacao;
+      if (time !== "") user.time = time;
+      if (vinculo !== "") user.vinculo = vinculo;
+      if (email !== "") user.email = email;
+      if (gitlab !== "") user.gitlab = gitlab;
+      if (telefone !== "") user.telefone = telefone;
+      user.img = images.length;
+      await api
+        .put(`/users/update/${id}`, user, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          if (images.length > 0) {
+            handleImageUpload(id);
+          } else {
+            alert("Colaborador editado com sucesso");
+            window.location.href = "/Colaboradores";
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Erro ao editar colaborador, verifique os campos");
+        });
+    }
   };
 
   return (
@@ -210,6 +259,7 @@ export default function ModalEditColaborador({
             </DivRightContainer>
           </DivMidContainer>
           <DivButtonContainer>
+            <ImageUpload images={images} setImages={setImages} imageURLs={imageURLs} setImageURLs={setImageURLs} />
             <button type="submit">Confirmar</button>
           </DivButtonContainer>
         </DivModalAddColaboradorContainer>

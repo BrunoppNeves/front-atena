@@ -1,17 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { HeaderContainer } from "./style";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.svg";
 
 export default function Header() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [user, setUser] = useState(null);
-
   const handleLogout = () => {
-    setUser({});
-    setEmail("");
-    setSenha("");
     localStorage.clear();
     window.location.href = "/";
   };

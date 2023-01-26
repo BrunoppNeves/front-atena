@@ -45,7 +45,7 @@ export const DivListaUserContainer = styled.div`
 
   h1 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 18px;
     padding: 0.4rem 1.5rem;
@@ -69,3 +69,10 @@ export const DivButtonsContainer = styled.div`
   align-items: center;
   width: 7vw;
 `;
+
+export const DivNomeContainer = styled.div``;
+export const DivEmailContainer = styled.div``;
+export const DivMatriculaContainer = styled.div``;
+export const DivAniversarioContainer = styled.div``;
+export const DivCompetenciaContainer = styled.div``;
+export const DivVinculoContainer = styled.div``;
