@@ -4,8 +4,13 @@ import { ListaComponente, FundoLista } from "./style";
 
 export default function ListaDashboard() {
   const token = localStorage.getItem("token");
-
   const [pessoas, setPessoas] = useState();
+
+  function logged() {
+    if (!token) {
+      window.location.href = "/Login";
+    }
+  }
 
   async function handlePessoasApi() {
     await api
@@ -24,6 +29,7 @@ export default function ListaDashboard() {
   }
 
   useEffect(() => {
+    logged();
     handlePessoasApi();
   }, []);
 

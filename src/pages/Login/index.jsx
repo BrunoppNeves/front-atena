@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import icon from "../../assets/images/Logo.svg";
 import emailIcon from "../../assets/images/LogoEmail.svg";
 import senhaIcon from "../../assets/images/LogoSenha.png";
@@ -17,6 +17,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [user, setUser] = useState(null);
+  const token = localStorage.getItem("token");
+
+  function logged() {
+    if (token) {
+      window.location.href = "/dashboard";
+    }
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,6 +35,10 @@ export default function Login() {
       window.location.href = "/dashboard";
     }
   };
+
+  useEffect(() => {
+    logged();
+  }, []);
 
   return (
     <BackgroundContainer>

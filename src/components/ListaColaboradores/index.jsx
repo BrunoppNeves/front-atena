@@ -19,6 +19,12 @@ export default function ListaColaboradores() {
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
 
+  function logged() {
+    if (!token) {
+      window.location.href = "/Login";
+    }
+  }
+
   async function handleSetShowModalInfo(id) {
     if (showModalInfo === false) await getPeople(id);
     setShowModalInfo(!showModalInfo);
@@ -87,6 +93,7 @@ export default function ListaColaboradores() {
   }
 
   useEffect(() => {
+    logged(); 
     handlePessoasApi();
   }, []);
 
