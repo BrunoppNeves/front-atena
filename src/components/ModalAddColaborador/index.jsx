@@ -34,11 +34,10 @@ export default function ModalAddColaborador({ CloseTab, Cancelar, Confirmar }) {
 
   async function handleImageUpload(id) {
     const formData = new FormData();
-    formData.append("foto1", images[0]);
-    formData.append("foto2", images[1]);
-    formData.append("foto3", images[2]);
-    formData.append("foto4", images[3]);
-    formData.append("foto5", images[4]);
+    images.forEach((image, key) => {
+      formData.append(`foto${key + 1}`, image);
+    });
+
     await api
       .post(`/images/upload/${id}`, formData, {
         headers: {
